@@ -19,5 +19,8 @@
   "homepage": "https://github.com/joao-cmr/qa-commerce-teste#readme",
   "dependencies": {
     "cypress": "^15.10.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
