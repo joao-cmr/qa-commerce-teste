@@ -11,13 +11,11 @@ beforeEach(() => {
 
   //Depois de cada teste
 afterEach(() => {
-  cy.screenshot()
+  // cy.screenshot()
 });
   
-  
-  
 
-  it('Deve fazer login com sucesso', () => {
+  it.skip('Deve fazer login com sucesso', () => {
     cy.get('#email').type('admin@admin.com')
     cy.get('#password').type('admin')
     cy.get('.btn').click()
@@ -26,7 +24,7 @@ afterEach(() => {
     
   })
 
-  it('Deve fazer logout com sucesso', () => {
+  it.skip('Deve fazer logout com sucesso', () => {
     cy.get('#email').type('admin@admin.com')
     cy.get('#password').type('admin')
     cy.get('.btn').click()
@@ -34,6 +32,18 @@ afterEach(() => {
     cy.url().should('include', '/login.html')
 
     
+  });
+
+  it('Deve fazer login com sucesso / usando Comandos Customizados', () => {
+    cy.login('admin@admin.com', 'admin')
+    cy.url().should('include', 'dashboard.html')
+  });
+
+  it('Deve fazer logout com sucesso /usando comandos customizados', () => {
+    cy.login('admin@admin.com', 'admin')
+    cy.get('#logout-button').click()
+     cy.get('h1').should('contain', 'LOGIN')
+   
   });
 
   
