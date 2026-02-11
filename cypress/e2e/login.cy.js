@@ -46,5 +46,24 @@ afterEach(() => {
    
   });
 
+  it('Deve validar mensagem de erro ao tentar fazer login com credenciais inválidas', () => {
+    cy.login('joao.carlos@impacta.com', 'admin')
+    cy.get('#error-container').should('contain.text' , 'Email ou senha incorretos')
+  });
+
+  it('Deve validar mensagem de erro ao tentar fazer login com senha incorreta', () => {
+    cy.login('admin@admin.com', 'senhaerrada')
+    cy.get('#error-container').should('contain.text' , 'Email ou senha incorretos')
+  });
+
+  it('Deve exibir mensagem de erro ao tentar entrar no site com o campo de emial vazio', () => {
+     cy.login('  ', 'admin')
+     cy.contains('Por favor, insira um email válido.').should('exist')
+  });
   
+   it('Deve exibir mensagem de erro ao tentar entrar no site com o campo da senha vazio', () => {
+    cy.get('#email').type('admin@admin.com')
+    cy.get('.btn').click()
+    cy.contains('Por favor, insira a senha.').should('exist')
+  });
 })
