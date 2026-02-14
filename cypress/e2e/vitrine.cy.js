@@ -26,10 +26,17 @@ describe('Testes da funcionalidade vitrine', () => {
         
     });
 
-    it.only('Deve clicar no terceiro produto da lista', () => {
+    it('Deve clicar no terceiro produto da lista', () => {
         cy.get('.card-img-top').eq(2).click()
         cy.get('legend').should('contain', 'Ecobag "Na minha máquina funciona"')
         
     });
+
+    it('Deve buscar um produto usando massa da dados', () => {
+        cy.fixture('produto-unico').then((produto => {
+        cy.contains(produto.Produto.nome).click()
+        cy.get('#product-price').should('contain', produto.Produto.preco)
+        }))
+    });
         
-});
+}); 

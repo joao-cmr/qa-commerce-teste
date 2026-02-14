@@ -1,0 +1,9 @@
+{
+    "Produto": {
+        "id": 1,
+        "nome": "Ecobag \"Na minha máquina funciona\"",
+        "preco": 30.00,
+        "descricao": "Ecobag feita de algodão, ideal para carregar suas compras e ajudar o meio ambiente.",
+        "imagem": "https://example.com/images/ecobag.jpg"
+    }
+}
