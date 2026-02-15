@@ -1,0 +1,45 @@
+[
+    {
+    "Produto": {
+        "id": 1,
+        "nome": "Ecobag \"Na minha máquina funciona\"",
+        "preco": 30.00,
+        "descricao": "Ecobag feita de algodão, ideal para carregar suas compras e ajudar o meio ambiente.",
+        "imagem": "https://example.com/images/ecobag.jpg"
+    }
+},
+    {
+    "Produto": {
+        "id": 2,
+        "nome": "Moletom com capuz \"Na minha máquina funciona\"",
+        "preco": 59.00,
+        "descricao": "Moletom com capuz branco fabricado com tecido de alta qualidade e caimento impecável.",
+        "imagem": "https://example.com/images/moletom.jpg"
+    }
+},
+
+    {
+    "Produto": {
+        "id": 3,
+        "nome": "Garrafa \"Testar é o único lugar onde falhar é realmente uma vitória!\"",
+        "preco": 30.00,
+        "descricao": "Garrafa térmica que mantem bebida qyente por até 12h e até 24h fria. Capacidade de 500 ml. Fabricada em aço inoxidável.",
+        "imagem": "https://example.com/images/garrafa.jpg"
+    }
+},
+
+        {
+    "Produto": {
+        "id": 4,
+        "nome": "Quadro \"Se você acha que nada é impossível...\"",
+        "preco": 70.00,
+        "descricao": "Quadro decorativo moldurado com acabamento em vidro. Medidas: 40 x 60 cm..",
+        "imagem": "https://example.com/images/quadro.jpg"
+    }
+}
+
+
+
+
+
+]
