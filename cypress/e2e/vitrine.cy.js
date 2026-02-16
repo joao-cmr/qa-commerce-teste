@@ -39,7 +39,7 @@ describe('Testes da funcionalidade vitrine', () => {
         }))
     });
 
-    it.only('Deve buscar produtos usando massa de dados múltiplos', () => {
+    it('Deve buscar produtos usando massa de dados múltiplos', () => {
         cy.fixture('multiplos-produtos').then((produtos) => {
             produtos.forEach((prod) => {
                 cy.contains(prod.Produto.nome).click()
