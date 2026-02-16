@@ -21,6 +21,7 @@
     "http-server": "^14.1.1"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.3.0",
     "cypress": "^14.3.2"
   }
 }
