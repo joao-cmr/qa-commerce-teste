@@ -13,7 +13,7 @@ describe('Teste de funcionalidade login', () => {
 
   //Depois de cada teste
   afterEach(() => {
-    cy.screenshot()
+    // cy.screenshot()
   });
 
   it('Deve fazer login com sucesso / usando Comandos Customizados', () => {
