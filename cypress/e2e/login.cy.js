@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import loginPage from "../support/page-objects/login-page";
+
 describe('Teste de funcionalidade login', () => {
 
   //HOOKS/Ganchos
@@ -14,7 +16,7 @@ describe('Teste de funcionalidade login', () => {
     cy.screenshot()
   });
 
-  it.only('Deve fazer login com sucesso / usando Comandos Customizados', () => {
+  it('Deve fazer login com sucesso / usando Comandos Customizados', () => {
     cy.login(Cypress.env('usuario'), Cypress.env('senha'));
     cy.url().should('include', 'dashboard.html');
 
@@ -46,5 +48,10 @@ describe('Teste de funcionalidade login', () => {
     cy.get('#email').type('admin@admin.com')
     cy.get('.btn').click()
     cy.contains('Por favor, insira a senha.').should('exist')
+  });
+
+  it('Deve fazer login co sucesso - usando Pages ', () => {
+    loginPage.fazerLogin('admin@admin.com', 'admin')
+    cy.url().should('include', 'dashboard.html');
   });
 })
