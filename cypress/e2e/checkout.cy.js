@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import  {  faker  }  from  '@faker-js/faker' ;
+import { faker } from '@faker-js/faker';
 import checkoutPage from '../support/page-objects/checkout-page';
 
 describe('Testes da funcionalidade de checkout', () => {
@@ -45,10 +45,10 @@ describe('Testes da funcionalidade de checkout', () => {
         cy.get('.btn').click();
         cy.get('h1').should('contain', 'STATUS DO PEDIDO');
 
-        
+
     });
 
-    it.only('Deve fazer checkout com sucesso - usando pages', () => {
+    it('Deve fazer checkout com sucesso - usando pages', () => {
         checkoutPage.preencherFormularioCheckout(
             faker.person.firstName(),
             faker.person.lastName(),
@@ -62,6 +62,29 @@ describe('Testes da funcionalidade de checkout', () => {
         cy.get('#password').type('180524Jc*');
         cy.get('#confirm-password').type('180524Jc*');
         cy.get('#payment-boleto').click();
+        cy.get('#terms').check();
+        cy.get('.btn').click();
+        cy.get('h1').should('contain', 'STATUS DO PEDIDO');
+    });
+
+    it.only('Deve fazer checkout com sucesso - pagamento no cartão', () => {
+        checkoutPage.preencherFormularioCheckout(
+            faker.person.firstName(),
+            faker.person.lastName(),
+            'Rua Iperó',
+            '26',
+            '07793365',
+            '11972641956',
+            faker.internet.email()
+        );
+        cy.get('#create-account').click();
+        cy.get('#password').type('180524Jc*');
+        cy.get('#confirm-password').type('180524Jc*');
+        checkoutPage.pagamentoCard(
+            '4532123456789012',
+            '05/2025',
+            '123'
+        );
         cy.get('#terms').check();
         cy.get('.btn').click();
         cy.get('h1').should('contain', 'STATUS DO PEDIDO');

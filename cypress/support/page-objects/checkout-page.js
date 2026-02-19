@@ -45,6 +45,26 @@ class CheckoutPage {
         return cy.get('#payment-boleto')
     }
 
+    get paymentPix() {
+        return cy.get('#payment-pix')
+    }
+
+    get paymentCard() {
+        return cy.get('#payment-card')
+    }
+
+    get numberCard() {
+        return cy.get('#card-number')
+    }
+
+    get expirationCard() {
+        return cy.get('#card-expiry')
+    }
+
+    get cvcCard() {
+        return cy.get('#card-cvc')
+    }
+
     get terms() {
         return cy.get('#terms')
     }
@@ -68,6 +88,21 @@ class CheckoutPage {
        
 
     }
+
+    pagamentoBoleto() {
+        this.paymentBoleto.click();
+    }
+
+        pagamentoPix() {    
+        this.paymentPix.click();
+    }
+
+    pagamentoCard(cardNumber, cardExpiry, cvcCard) {
+        this.paymentCard.click();
+        this.numberCard.type(cardNumber);
+        this.expirationCard.type(cardExpiry);
+        this.cvcCard.type(cvcCard);
+    } 
 }
 
 export default new CheckoutPage();
