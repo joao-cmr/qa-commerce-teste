@@ -1,62 +1,90 @@
-# 🛒 Automação de Testes E2E - Fake Store / Commerce
+#  Automação de Testes E2E - Fake Store / Commerce
 
-Este repositório contém uma suíte de testes automatizados End-to-End (E2E) desenvolvida para validar fluxos críticos de uma aplicação de e-commerce. O projeto utiliza **Cypress** com **JavaScript/TypeScript**, seguindo as melhores práticas de escrita de testes e arquitetura.
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-- **Cypress**: Framework de automação de testes.
-- **TypeScript**: Adicionado para tipagem e maior segurança no código.
-- **Faker Library**: Gerador de massa de dados dinâmica para testes mais realistas.
-- **Page Object Model (POM)**: Padrão de design para melhorar a manutenção e reuso do código.
+Este repositório contém uma suíte de testes automatizados End-to-End (E2E) desenvolvida para validar fluxos críticos de uma aplicação de e-commerce. O projeto utiliza **Cypress** com **JavaScript**, seguindo as melhores práticas de escrita de testes e arquitetura de software.
 
 ---
 
-## 🏗️ Estrutura do Projeto
-
-O projeto está organizado da seguinte forma:
-
-- `cypress/e2e/`: Contém os arquivos de especificações de testes (ex: login, checkout, vitrine).
-- `cypress/fixtures/`: Armazena massas de dados estáticas em arquivos JSON.
-- `cypress/support/page-objects/`: Contém as classes Page Objects, separando a lógica das ações da lógica dos testes.
-- `cypress/support/commands.js`: Comandos customizados do Cypress para reaproveitamento de código (ex: login customizado).
+##  Aplicação Alvo
+Os testes contidos neste repositório foram desenvolvidos para validar a integridade da aplicação:
+- **Repositório da Aplicação:** [qa-commerce](https://github.com/joao-cmr/qa-commerce)
+- **Descrição:** Aplicação completa de e-commerce simulando cenários de negócio como autenticação, catálogo de produtos e fluxo de checkout.
 
 ---
 
-## 🧪 Cenários de Teste Implementados
+##  Tecnologias Utilizadas
 
-Atualmente, o projeto cobre os seguintes fluxos:
-
-1. **Vitrine:** Validação de exibição e interação com produtos.
-2. **Login:** Fluxos de autenticação com dados válidos e tratamento de erros.
-3. **Checkout:** Fluxo completo desde a seleção do produto até a finalização da compra.
+- **Cypress**: Framework principal para automação de testes.
+- **JavaScript**: Linguagem principal utilizada para a construção de scripts de teste dinâmicos, aproveitando a integração nativa com o ecossistema Node.js e Cypress.
+- **Faker Library**: Gerador de massa de dados dinâmica para evitar testes com dados viciados.
+- **Page Object Model (POM)**: Padrão de design utilizado para desacoplar a lógica de teste da estrutura da interface (UI).
 
 ---
 
-## 📦 Como Executar o Projeto
+##  Estrutura do Projeto
 
-1. **Clone o repositório:**
-   
-   git clone [https://github.com/joao-cmr/qa-commerce-teste.git](https://github.com/joao-cmr/qa-commerce-teste.git)
+A arquitetura do projeto foi pensada para escalabilidade:
 
+- `cypress/e2e/`: Scripts de testes organizados por funcionalidades (ex: login, checkout, vitrine).
+- `cypress/fixtures/`: Arquivos JSON com massas de dados estáticas.
+- `cypress/support/page-objects/`: Classes que representam as páginas e encapsulam os seletores/ações.
+- `cypress/support/commands.js`: Comandos customizados para reaproveitamento de funções globais.
 
-2. **Instale as dependências:**
+---
 
-   npm install
+##  Cenários de Teste Implementados
 
-3. **Abra o Cypress (modo interativo):**
+Atualmente, o projeto cobre os seguintes fluxos críticos:
 
-   npx cypress open
+1. **Vitrine:** Validação de exibição, filtros e interação com a lista de produtos.
+2. **Login:** Fluxos de autenticação (sucesso e falha) e validação de mensagens de erro.
+3. **Checkout:** Fluxo completo, da adição do item ao carrinho até a finalização do pedido.
 
-4. **Execute os testes:**
+---
 
-   npx cypress run
+##  Como Executar o Projeto
 
-## 🛠️ Práticas de QA Aplicadas
+**Para rodar os testes localmente, você precisará clonar tanto o repositório da aplicação quanto de testes.**
 
-**Massa de Dados Dinâmica:** Uso do Faker para evitar testes frágeis com dados viciados.
+### 1. Inicie a Aplicação 
+Em um terminal, siga os passos abaixo no repositório [qa-commerce](https://github.com/joao-cmr/qa-commerce):
 
-**Hooks (before/after):** Organização do estado dos testes para garantir independência entre os cenários.
+```bash
+git clone [https://github.com/joao-cmr/qa-commerce.git](https://github.com/joao-cmr/qa-commerce.git)
+cd qa-commerce
+npm install
+npm start
 
-**POM:** Encapsulamento de seletores e ações para facilitar futuras manutenções na UI.
+```
+### **A aplicação devera esta rodando em:_/localhost:3000/_**
+
+------
+
+### 2. Execute os testes (Cypress)
+
+**Em um segundo terminal, execute os comandos abaixo neste repositório:**
+
+### Clone o repositório de testes
+```
+git clone https://github.com/joao-cmr/qa-commerce-teste.git
+```
+
+### Entre na pasta
+```
+cd qa-commerce-teste
+```
+
+### Instale as dependências do Cypress e bibliotecas auxiliares
+```
+npm install
+```
+
+### Para abrir a interface visual do Cypress:
+```
+npx cypress open
+```
+
+### Para rodar os testes direto no terminal (Modo Headless):
+```
+npx cypress run
+```
+
