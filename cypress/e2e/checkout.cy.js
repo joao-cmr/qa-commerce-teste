@@ -67,7 +67,7 @@ describe('Testes da funcionalidade de checkout', () => {
         cy.get('h1').should('contain', 'STATUS DO PEDIDO');
     });
 
-    it.only('Deve fazer checkout com sucesso - pagamento no cartão', () => {
+    it('Deve fazer checkout com sucesso - pagamento no cartão', () => {
         checkoutPage.preencherFormularioCheckout(
             faker.person.firstName(),
             faker.person.lastName(),

@@ -11,11 +11,6 @@ describe('Teste de funcionalidade login', () => {
     cy.visit('login.html')
   });
 
-  //Depois de cada teste
-  afterEach(() => {
-    // cy.screenshot()
-  });
-
   it('Deve fazer login com sucesso / usando Comandos Customizados', () => {
     cy.login(Cypress.env('usuario'), Cypress.env('senha'));
     cy.url().should('include', 'dashboard.html');
