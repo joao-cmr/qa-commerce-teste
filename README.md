@@ -1,4 +1,4 @@
-# 🧪 QA Commerce - Testes Automatizados
+# QA Commerce - Testes Automatizados
 
 ![Cypress Tests](https://github.com/joao-cmr/qa-commerce-teste/actions/workflows/cypress.yml/badge.svg)
 
@@ -12,14 +12,14 @@ Este repositório contém a suíte completa de testes automatizados para validar
 - 🛒 **Checkout** - Fluxo completo de compra
 - 🏪 **Vitrine** - Navegação e busca de produtos
 
-## 🚀 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - **Cypress 14.5.4** - Framework de testes E2E
 - **Faker.js** - Geração de dados de teste
 - **GitHub Actions** - CI/CD para execução automática dos testes
 - **Page Objects** - Padrão de design para organização dos testes
 
-## 📊 Status dos Testes
+## Status dos Testes
 
 Atualmente rodando **17 cenários de teste** cobrindo:
 
@@ -29,7 +29,7 @@ Atualmente rodando **17 cenários de teste** cobrindo:
 | Login | 7 | ✅ |
 | Vitrine | 6 | ✅ |
 
-## 🛠️ Pré-requisitos
+##  Pré-requisitos
 
 Antes de começar, você precisa ter instalado:
 
@@ -37,7 +37,7 @@ Antes de começar, você precisa ter instalado:
 - [Git](https://git-scm.com/)
 - [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce) clonado e rodando
 
-## 📦 Instalação
+##  Instalação
 
 ### 1. Clone este repositório
 
@@ -62,7 +62,7 @@ npm start
 
 A aplicação deve estar acessível em `http://localhost:3000`
 
-## ▶️ Executando os Testes
+##  Executando os Testes
 
 ### Modo Interativo (Cypress UI)
 
@@ -106,7 +106,7 @@ qa-commerce-teste/
 └── README.md
 ```
 
-## 🔄 CI/CD - GitHub Actions
+##  CI/CD - GitHub Actions
 
 Os testes rodam **automaticamente** a cada push para a branch `main`:
 
@@ -126,7 +126,7 @@ Acesse a aba [Actions](https://github.com/joao-cmr/qa-commerce-teste/actions) do
 - Screenshots de falhas
 - Vídeos das execuções
 
-## 🧩 Funcionalidades dos Testes
+##  Funcionalidades dos Testes
 
 ### Checkout (`checkout.cy.js`)
 - ✅ Preenchimento do formulário completo
@@ -147,16 +147,16 @@ Acesse a aba [Actions](https://github.com/joao-cmr/qa-commerce-teste/actions) do
 - ✅ Uso de massa de dados (fixture)
 - ✅ Múltiplas buscas em sequência
 
-## 🎯 Boas Práticas Implementadas
+##  Boas Práticas Implementadas
 
-- ✨ **Comandos Customizados** - Reutilização de código
-- 📄 **Page Objects** - Manutenibilidade e organização
-- 🎲 **Faker.js** - Dados dinâmicos para testes
-- 📊 **Fixtures** - Massa de dados estruturada
-- 🔍 **Waits inteligentes** - Estabilidade em ambientes CI/CD
-- 📸 **Screenshots automáticos** - Apenas em falhas
+-  **Comandos Customizados** - Reutilização de código
+-  **Page Objects** - Manutenibilidade e organização
+-  **Faker.js** - Dados dinâmicos para testes
+-  **Fixtures** - Massa de dados estruturada
+-  **Waits inteligentes** - Estabilidade em ambientes CI/CD
+-  **Screenshots automáticos** - Apenas em falhas
 
-## 🐛 Reportando Bugs
+## Reportando Bugs
 
 Se encontrar problemas:
 
@@ -165,13 +165,13 @@ Se encontrar problemas:
 3. Veja os screenshots na pasta `cypress/screenshots`
 4. Abra uma [issue](https://github.com/joao-cmr/qa-commerce-teste/issues) com detalhes
 
-## 📚 Recursos Adicionais
+## Recursos Adicionais
 
 - [Documentação do Cypress](https://docs.cypress.io/)
 - [Best Practices Cypress](https://docs.cypress.io/guides/references/best-practices)
 - [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce)
 
-## 👤 Autor
+##  Autor
 
 **João**
 
