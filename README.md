@@ -1,90 +1,187 @@
-#  Automação de Testes E2E - Fake Store / Commerce
+# 🧪 QA Commerce - Testes Automatizados
 
-Este repositório contém uma suíte de testes automatizados End-to-End (E2E) desenvolvida para validar fluxos críticos de uma aplicação de e-commerce. O projeto utiliza **Cypress** com **JavaScript**, seguindo as melhores práticas de escrita de testes e arquitetura de software.
+![Cypress Tests](https://github.com/joao-cmr/qa-commerce-teste/actions/workflows/cypress.yml/badge.svg)
 
----
+Testes E2E automatizados com Cypress para o projeto [QA Commerce](https://github.com/joao-cmr/qa-commerce) - uma aplicação de e-commerce desenvolvida para prática de QA.
 
-##  Aplicação Alvo
-Os testes contidos neste repositório foram desenvolvidos para validar a integridade da aplicação:
-- **Repositório da Aplicação:** [qa-commerce](https://github.com/joao-cmr/qa-commerce)
-- **Descrição:** Aplicação completa de e-commerce simulando cenários de negócio como autenticação, catálogo de produtos e fluxo de checkout.
+## 📋 Sobre o Projeto
 
----
+Este repositório contém a suíte completa de testes automatizados para validar as principais funcionalidades do QA Commerce, incluindo:
 
-##  Tecnologias Utilizadas
+- 🔐 **Login/Logout** - Autenticação de usuários
+- 🛒 **Checkout** - Fluxo completo de compra
+- 🏪 **Vitrine** - Navegação e busca de produtos
 
-- **Cypress**: Framework principal para automação de testes.
-- **JavaScript**: Linguagem principal utilizada para a construção de scripts de teste dinâmicos, aproveitando a integração nativa com o ecossistema Node.js e Cypress.
-- **Faker Library**: Gerador de massa de dados dinâmica para evitar testes com dados viciados.
-- **Page Object Model (POM)**: Padrão de design utilizado para desacoplar a lógica de teste da estrutura da interface (UI).
+## 🚀 Tecnologias Utilizadas
 
----
+- **Cypress 14.5.4** - Framework de testes E2E
+- **Faker.js** - Geração de dados de teste
+- **GitHub Actions** - CI/CD para execução automática dos testes
+- **Page Objects** - Padrão de design para organização dos testes
 
-##  Estrutura do Projeto
+## 📊 Status dos Testes
 
-A arquitetura do projeto foi pensada para escalabilidade:
+Atualmente rodando **17 cenários de teste** cobrindo:
 
-- `cypress/e2e/`: Scripts de testes organizados por funcionalidades (ex: login, checkout, vitrine).
-- `cypress/fixtures/`: Arquivos JSON com massas de dados estáticas.
-- `cypress/support/page-objects/`: Classes que representam as páginas e encapsulam os seletores/ações.
-- `cypress/support/commands.js`: Comandos customizados para reaproveitamento de funções globais.
+| Funcionalidade | Cenários | Status |
+|----------------|----------|--------|
+| Checkout | 4 | ✅ |
+| Login | 7 | ✅ |
+| Vitrine | 6 | ✅ |
 
----
+## 🛠️ Pré-requisitos
 
-##  Cenários de Teste Implementados
+Antes de começar, você precisa ter instalado:
 
-Atualmente, o projeto cobre os seguintes fluxos críticos:
+- [Node.js](https://nodejs.org/) (versão 20 ou superior)
+- [Git](https://git-scm.com/)
+- [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce) clonado e rodando
 
-1. **Vitrine:** Validação de exibição, filtros e interação com a lista de produtos.
-2. **Login:** Fluxos de autenticação (sucesso e falha) e validação de mensagens de erro.
-3. **Checkout:** Fluxo completo, da adição do item ao carrinho até a finalização do pedido.
+## 📦 Instalação
 
----
-
-##  Como Executar o Projeto
-
-**Para rodar os testes localmente, você precisará clonar tanto o repositório da aplicação quanto de testes.**
-
-### 1. Inicie a Aplicação 
-Em um terminal, siga os passos abaixo no repositório [qa-commerce](https://github.com/joao-cmr/qa-commerce):
+### 1. Clone este repositório
 
 ```bash
-git clone [https://github.com/joao-cmr/qa-commerce.git](https://github.com/joao-cmr/qa-commerce.git)
-cd qa-commerce
-npm install
-npm start
-
-```
-### **A aplicação devera esta rodando em:_/localhost:3000/_**
-
-------
-
-### 2. Execute os testes (Cypress)
-
-**Em um segundo terminal, execute os comandos abaixo neste repositório:**
-
-### Clone o repositório de testes
-```
 git clone https://github.com/joao-cmr/qa-commerce-teste.git
-```
-
-### Entre na pasta
-```
 cd qa-commerce-teste
 ```
 
-### Instale as dependências do Cypress e bibliotecas auxiliares
-```
+### 2. Instale as dependências
+
+```bash
 npm install
 ```
 
-### Para abrir a interface visual do Cypress:
+### 3. Garanta que a aplicação QA Commerce está rodando
+
+Em outro terminal, na pasta do `qa-commerce`:
+
+```bash
+npm start
 ```
+
+A aplicação deve estar acessível em `http://localhost:3000`
+
+## ▶️ Executando os Testes
+
+### Modo Interativo (Cypress UI)
+
+```bash
 npx cypress open
 ```
 
-### Para rodar os testes direto no terminal (Modo Headless):
-```
-npx cypress run
+Selecione os testes que deseja executar na interface gráfica.
+
+### Modo Headless (linha de comando)
+
+```bash
+npm test
 ```
 
+Ou com navegador específico:
+
+```bash
+npx cypress run --browser chrome
+```
+
+## 📁 Estrutura do Projeto
+
+```
+qa-commerce-teste/
+├── .github/
+│   └── workflows/
+│       └── cypress.yml          # Pipeline CI/CD
+├── cypress/
+│   ├── e2e/
+│   │   ├── checkout.cy.js       # Testes de checkout
+│   │   ├── login.cy.js          # Testes de autenticação
+│   │   └── vitrine.cy.js        # Testes da vitrine
+│   ├── fixtures/                # Massa de dados
+│   ├── support/
+│   │   ├── commands.js          # Comandos customizados
+│   │   └── page-objects/        # Page Objects
+│   └── screenshots/             # Screenshots de falhas
+├── cypress.config.js
+├── package.json
+└── README.md
+```
+
+## 🔄 CI/CD - GitHub Actions
+
+Os testes rodam **automaticamente** a cada push para a branch `main`:
+
+1. ✅ Checkout dos repositórios (aplicação + testes)
+2. ✅ Instalação das dependências
+3. ✅ Inicialização do banco de dados
+4. ✅ Start do servidor Express
+5. ✅ Execução dos testes Cypress
+6. 📸 Upload de screenshots (em caso de falha)
+7. 🎥 Upload de vídeos (sempre)
+
+### Visualizar Resultados
+
+Acesse a aba [Actions](https://github.com/joao-cmr/qa-commerce-teste/actions) do repositório para ver:
+- Status das execuções
+- Logs detalhados
+- Screenshots de falhas
+- Vídeos das execuções
+
+## 🧩 Funcionalidades dos Testes
+
+### Checkout (`checkout.cy.js`)
+- ✅ Preenchimento do formulário completo
+- ✅ Geração de dados com Faker
+- ✅ Uso de Page Objects
+- ✅ Validação de pagamento com cartão
+
+### Login (`login.cy.js`)
+- ✅ Login com credenciais válidas
+- ✅ Logout
+- ✅ Validação de credenciais inválidas
+- ✅ Validação de campos vazios
+- ✅ Mensagens de erro apropriadas
+
+### Vitrine (`vitrine.cy.js`)
+- ✅ Busca de produtos por nome
+- ✅ Navegação pelos produtos (primeiro, último, terceiro)
+- ✅ Uso de massa de dados (fixture)
+- ✅ Múltiplas buscas em sequência
+
+## 🎯 Boas Práticas Implementadas
+
+- ✨ **Comandos Customizados** - Reutilização de código
+- 📄 **Page Objects** - Manutenibilidade e organização
+- 🎲 **Faker.js** - Dados dinâmicos para testes
+- 📊 **Fixtures** - Massa de dados estruturada
+- 🔍 **Waits inteligentes** - Estabilidade em ambientes CI/CD
+- 📸 **Screenshots automáticos** - Apenas em falhas
+
+## 🐛 Reportando Bugs
+
+Se encontrar problemas:
+
+1. Verifique se a aplicação QA Commerce está rodando
+2. Confira os logs do Cypress
+3. Veja os screenshots na pasta `cypress/screenshots`
+4. Abra uma [issue](https://github.com/joao-cmr/qa-commerce-teste/issues) com detalhes
+
+## 📚 Recursos Adicionais
+
+- [Documentação do Cypress](https://docs.cypress.io/)
+- [Best Practices Cypress](https://docs.cypress.io/guides/references/best-practices)
+- [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce)
+
+## 👤 Autor
+
+**João**
+
+- GitHub: [@joao-cmr](https://github.com/joao-cmr)
+- Projeto: Testes automatizados para QA Commerce
+
+## 📝 Licença
+
+Este projeto é open source para fins educacionais.
+
+---
+
+⭐ Se este projeto te ajudou, considere dar uma estrela!
