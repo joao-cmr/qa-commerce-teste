@@ -47,6 +47,9 @@ jobs:
       
       - name: Run Cypress tests
         working-directory: ./qa-commerce-teste
+        env:
+          CYPRESS_usuario: admin@admin.com
+          CYPRESS_senha: admin
         run: npx cypress run --browser chrome
       
       - name: Upload screenshots (on failure)
