@@ -11,34 +11,46 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout
+      - name: Checkout testes
         uses: actions/checkout@v4
+        with:
+          path: qa-commerce-teste
+      
+      - name: Checkout aplicação
+        uses: actions/checkout@v4
+        with:
+          repository: joao-cmr/qa-commerce
+          path: qa-commerce
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
       
-      - name: Install dependencies
+      - name: Install dependencies (testes)
+        working-directory: ./qa-commerce-teste
         run: npm ci
       
+      - name: Start application
+        working-directory: ./qa-commerce
+        run: |
+          npx http-server . -p 3000 -c-1 &
+          npx wait-on http://localhost:3000
+      
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          browser: chrome
+        working-directory: ./qa-commerce-teste
+        run: npx cypress run --browser chrome
       
       - name: Upload screenshots (on failure)
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
+          path: qa-commerce-teste/cypress/screenshots
       
       - name: Upload videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
-          path: cypress/videos
+          path: qa-commerce-teste/cypress/videos

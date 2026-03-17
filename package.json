@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -p 3000 -o",
+    "start": "http-server -p 3000",
     "test": "cypress run",
     "test:headed": "cypress run --headed"
   },
@@ -20,10 +20,13 @@
   },
   "homepage": "https://github.com/joao-cmr/qa-commerce-teste#readme",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "wait-on": "^7.2.0"
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
     "cypress": "^14.3.2"
   }
+
+  
 }
