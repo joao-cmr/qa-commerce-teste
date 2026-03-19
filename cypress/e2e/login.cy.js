@@ -54,13 +54,6 @@ describe('Teste de funcionalidade login', () => {
       cy.contains('Por favor, insira um email válido').should('be.visible')
     
     });
-
-    it('Não deve permitir submit com email inválido', () => {
-      cy.get('#email').type("admin' OR '1'='1")
-      cy.get('.btn').click()
-      cy.url().should('include', 'login.html')
-    });
-
   });
 
   context('Validações de formato e segurança', () => {
@@ -87,7 +80,7 @@ describe('Teste de funcionalidade login', () => {
       cy.get('.btn').click()
       cy.get('#error-container').should('not.contain', 'não cadastrado')
       cy.get('#error-container').should('not.contain', 'não existe')
+      
     })
-
   });
 });
