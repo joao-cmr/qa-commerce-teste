@@ -1,4 +1,4 @@
-# 📋 Documentação de Testes - Funcionalidade de Vitrine
+# Documentação de Testes - Funcionalidade de Vitrine
 
 ##  Visão Geral
 
