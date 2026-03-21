@@ -88,7 +88,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('h1').should('contain', 'STATUS DO PEDIDO');
         });
 
-        
+
         it('Deve fazer checkout com sucesso - pagamento via Pix', () => {
             checkoutPage.preencherFormularioCheckout(
                 faker.person.firstName(),
@@ -108,7 +108,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('h1').should('contain', 'STATUS DO PEDIDO');
         });
 
-        
+
         it('Deve fazer checkout como visitante - sem criar conta', () => {
             checkoutPage.preencherFormularioCheckout(
                 faker.person.firstName(),
@@ -168,6 +168,8 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.contains('As senhas não coincidem').should('be.visible');
         });
 
+        ```javascript
+
         // TODO: Remover .skip() após correção - Issue #1
         it.skip('Não deve processar pagamento com número de cartão inválido', () => {
             checkoutPage.preencherFormularioCheckout(
@@ -188,6 +190,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('.btn').click();
             cy.url().should('include', 'checkout.html');
         });
+        ```
     });
 
     describe('Validações de Erro - Prioridade Alta (P1)', () => {
@@ -220,6 +223,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.contains('O CEP deve ter 8 caracteres').should('be.visible');
         });
 
+        ```javascript
         // TODO: Remover .skip() após correção - Issue #2
         it.skip('Não deve processar cartão com data de validade expirada', () => {
             checkoutPage.preencherFormularioCheckout(
@@ -240,7 +244,9 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('.btn').click();
             cy.url().should('include', 'checkout.html');
         });
+        ```
 
+        ```javascript
         // TODO: Remover .skip() após correção - Issue #3
         it.skip('Não deve processar cartão com CVV inválido', () => {
             checkoutPage.preencherFormularioCheckout(
@@ -261,6 +267,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('.btn').click();
             cy.url().should('include', 'checkout.html');
         });
+        ```
     });
 
     describe('Testes de Segurança', () => {
@@ -308,75 +315,75 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('#terms').check();
             cy.get('.btn').click();
             cy.contains('"email" must be a valid email').should('be.visible');
-    });
-});
-
-describe('Testes de Usabilidade', () => {
-
-    it('Deve alternar entre formas de pagamento - Boleto para Cartão', () => {
-        checkoutPage.preencherFormularioCheckout(
-            faker.person.firstName(),
-            faker.person.lastName(),
-            'Rua Iperó',
-            '26',
-            '07793365',
-            '11972641956',
-            faker.internet.email()
-        );
-        cy.get('#payment-boleto').click();
-        cy.get('#payment-boleto').should('be.checked');
-        cy.get('#payment-card').click();
-        cy.get('#payment-card').should('be.checked');
-        cy.get('#payment-boleto').should('not.be.checked');
-        checkoutPage.pagamentoCard('4532123456789012', '05/2025', '123');
-        cy.get('#terms').check();
-        cy.get('.btn').click();
-        cy.get('h1').should('contain', 'STATUS DO PEDIDO');
+        });
     });
 
-    it('Deve alternar entre formas de pagamento - Cartão para Pix', () => {
-        checkoutPage.preencherFormularioCheckout(
-            faker.person.firstName(),
-            faker.person.lastName(),
-            'Rua Iperó',
-            '26',
-            '07793365',
-            '11972641956',
-            faker.internet.email()
-        );
+    describe('Testes de Usabilidade', () => {
 
-        
-        cy.get('#payment-card').click();
-        cy.get('#payment-card').should('be.checked');
-        cy.get('#payment-pix').click();
-        cy.get('#payment-pix').should('be.checked');
-        cy.get('#payment-card').should('not.be.checked');
+        it('Deve alternar entre formas de pagamento - Boleto para Cartão', () => {
+            checkoutPage.preencherFormularioCheckout(
+                faker.person.firstName(),
+                faker.person.lastName(),
+                'Rua Iperó',
+                '26',
+                '07793365',
+                '11972641956',
+                faker.internet.email()
+            );
+            cy.get('#payment-boleto').click();
+            cy.get('#payment-boleto').should('be.checked');
+            cy.get('#payment-card').click();
+            cy.get('#payment-card').should('be.checked');
+            cy.get('#payment-boleto').should('not.be.checked');
+            checkoutPage.pagamentoCard('4532123456789012', '05/2025', '123');
+            cy.get('#terms').check();
+            cy.get('.btn').click();
+            cy.get('h1').should('contain', 'STATUS DO PEDIDO');
+        });
 
-        cy.get('#terms').check();
-        cy.get('.btn').click();
-        cy.get('h1').should('contain', 'STATUS DO PEDIDO');
+        it('Deve alternar entre formas de pagamento - Cartão para Pix', () => {
+            checkoutPage.preencherFormularioCheckout(
+                faker.person.firstName(),
+                faker.person.lastName(),
+                'Rua Iperó',
+                '26',
+                '07793365',
+                '11972641956',
+                faker.internet.email()
+            );
+
+
+            cy.get('#payment-card').click();
+            cy.get('#payment-card').should('be.checked');
+            cy.get('#payment-pix').click();
+            cy.get('#payment-pix').should('be.checked');
+            cy.get('#payment-card').should('not.be.checked');
+
+            cy.get('#terms').check();
+            cy.get('.btn').click();
+            cy.get('h1').should('contain', 'STATUS DO PEDIDO');
+        });
+
+        it('Deve alternar entre formas de pagamento - Pix para Boleto', () => {
+            checkoutPage.preencherFormularioCheckout(
+                faker.person.firstName(),
+                faker.person.lastName(),
+                'Rua Iperó',
+                '26',
+                '07793365',
+                '11972641956',
+                faker.internet.email()
+            );
+
+
+            cy.get('#payment-pix').click();
+            cy.get('#payment-pix').should('be.checked');
+            cy.get('#payment-boleto').click();
+            cy.get('#payment-boleto').should('be.checked');
+            cy.get('#payment-pix').should('not.be.checked');
+            cy.get('#terms').check();
+            cy.get('.btn').click();
+            cy.get('h1').should('contain', 'STATUS DO PEDIDO');
+        });
     });
-
-    it('Deve alternar entre formas de pagamento - Pix para Boleto', () => {
-        checkoutPage.preencherFormularioCheckout(
-            faker.person.firstName(),
-            faker.person.lastName(),
-            'Rua Iperó',
-            '26',
-            '07793365',
-            '11972641956',
-            faker.internet.email()
-        );
-
-       
-        cy.get('#payment-pix').click();
-        cy.get('#payment-pix').should('be.checked');
-        cy.get('#payment-boleto').click();
-        cy.get('#payment-boleto').should('be.checked');
-        cy.get('#payment-pix').should('not.be.checked');
-        cy.get('#terms').check();
-        cy.get('.btn').click();
-        cy.get('h1').should('contain', 'STATUS DO PEDIDO');
-    });
-});
 });
