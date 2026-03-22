@@ -229,12 +229,3 @@ npx cypress open
 - Adicionar testes de acessibilidade (alt text em imagens, navegação por teclado)
 
 ---
-
-##  Bugs Identificados
-
-| ID | Severidade | Descrição | Status |
-|----|-----------|-----------|--------|
-| BUG-VIT-001 | Média | Algumas imagens de produtos não carregam corretamente | Identificado |
-| BUG-VIT-002 | Baixa | Produto inexistente (ID inválido) não exibe mensagem de erro amigável | Identificado |
-
----

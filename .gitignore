@@ -143,3 +143,9 @@ cypress.env.json
 # Cypress artifacts (screenshots and videos)
 cypress/screenshots/
 cypress/videos/
+
+# Mochawesome reports (exceto o HTML final)
+cypress/reports/*.json
+cypress/reports/assets/
+cypress/reports/.jsons/
+!cypress/reports/report.html
