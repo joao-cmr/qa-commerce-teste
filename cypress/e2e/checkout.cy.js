@@ -168,8 +168,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.contains('As senhas não coincidem').should('be.visible');
         });
 
-        ```javascript
-
+        
         // TODO: Remover .skip() após correção - Issue #1
         it.skip('Não deve processar pagamento com número de cartão inválido', () => {
             checkoutPage.preencherFormularioCheckout(
@@ -190,7 +189,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('.btn').click();
             cy.url().should('include', 'checkout.html');
         });
-        ```
+        
     });
 
     describe('Validações de Erro - Prioridade Alta (P1)', () => {
@@ -223,7 +222,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.contains('O CEP deve ter 8 caracteres').should('be.visible');
         });
 
-        ```javascript
+      
         // TODO: Remover .skip() após correção - Issue #2
         it.skip('Não deve processar cartão com data de validade expirada', () => {
             checkoutPage.preencherFormularioCheckout(
@@ -244,9 +243,8 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('.btn').click();
             cy.url().should('include', 'checkout.html');
         });
-        ```
+        
 
-        ```javascript
         // TODO: Remover .skip() após correção - Issue #3
         it.skip('Não deve processar cartão com CVV inválido', () => {
             checkoutPage.preencherFormularioCheckout(
@@ -267,7 +265,7 @@ describe('Testes da funcionalidade de checkout', () => {
             cy.get('.btn').click();
             cy.url().should('include', 'checkout.html');
         });
-        ```
+    
     });
 
     describe('Testes de Segurança', () => {
