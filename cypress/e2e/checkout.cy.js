@@ -170,6 +170,7 @@ describe('Testes da funcionalidade de checkout', () => {
 
         
         // TODO: Remover .skip() após correção - Issue #1
+        // https://github.com/joao-cmr/qa-commerce-teste/issues/1#issue-4110289128
         it.skip('Não deve processar pagamento com número de cartão inválido', () => {
             checkoutPage.preencherFormularioCheckout(
                 faker.person.firstName(),
