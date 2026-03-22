@@ -1,5 +1,10 @@
 name: Cypress Tests
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 on:
   push:
     branches: [ main, master ]
@@ -59,5 +64,25 @@ jobs:
           name: cypress-screenshots
           path: qa-commerce-teste/cypress/screenshots
           if-no-files-found: ignore
+
+      - name: Generate Mochawesome Report
+        if: always()
+        working-directory: ./qa-commerce-teste
+        run: |
+          npm run report:merge
+          npm run report:generate
       
+      - name: Prepare GitHub Pages
+        if: always()
+        run: |
+          mkdir -p gh-pages
+          cp qa-commerce-teste/cypress/reports/report.html gh-pages/index.html
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          force_orphan: true
       
