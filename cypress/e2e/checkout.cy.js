@@ -182,7 +182,7 @@ describe('Testes da funcionalidade de checkout', () => {
                 faker.internet.email()
             );
             checkoutPage.pagamentoCard(
-                '1234567890123456',
+                '12345678901234561',
                 '05/2025',
                 '123'
             );
@@ -225,6 +225,7 @@ describe('Testes da funcionalidade de checkout', () => {
 
       
         // TODO: Remover .skip() após correção - Issue #2
+        // https://github.com/joao-cmr/qa-commerce-teste/issues/2#issue-4110301352
         it.skip('Não deve processar cartão com data de validade expirada', () => {
             checkoutPage.preencherFormularioCheckout(
                 faker.person.firstName(),
@@ -247,6 +248,7 @@ describe('Testes da funcionalidade de checkout', () => {
         
 
         // TODO: Remover .skip() após correção - Issue #3
+        // https://github.com/joao-cmr/qa-commerce-teste/issues/3#issue-4110305949
         it.skip('Não deve processar cartão com CVV inválido', () => {
             checkoutPage.preencherFormularioCheckout(
                 faker.person.firstName(),
