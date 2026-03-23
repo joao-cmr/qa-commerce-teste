@@ -251,7 +251,7 @@ Se encontrar problemas ao executar os testes:
 3. Veja os screenshots na pasta `cypress/screenshots`
 4. Abra uma [issue](https://github.com/joao-cmr/qa-commerce-teste/issues) com detalhes
 
-## 📖 Recursos Adicionais
+##  Recursos Adicionais
 
 - [Documentação do Cypress](https://docs.cypress.io/)
 - [Best Practices Cypress](https://docs.cypress.io/guides/references/best-practices)
