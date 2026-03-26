@@ -6,24 +6,52 @@ Testes E2E automatizados com Cypress para o projeto [QA Commerce](https://github
 
 ##  Sobre o Projeto
 
-Este repositório contém a suíte completa de testes automatizados para validar as principais funcionalidades do QA Commerce, incluindo:
+Suíte de testes E2E orientada a risco, focada na proteção de receita e prevenção de regressões em um fluxo de e-commerce para validar as principais funcionalidades do QA Commerce, incluindo:
 
 -  **Login/Logout** - Autenticação de usuários
 -  **Checkout** - Fluxo completo de compra
 -  **Vitrine** - Navegação e busca de produtos
 
+---
+
+##  Impacto no Negócio
+
+Este projeto de automação foi estruturado com foco em **proteger a receita** e **reduzir riscos operacionais** do QA Commerce:
+
+### Por que automatizar E2E em e-commerce?
+
+- **Checkout representa 100% da conversão**: Uma falha nesse fluxo = perda direta de vendas
+- **Bugs de validação = risco financeiro**: Aceitar cartão inválido pode gerar chargeback e fraude
+- **Deploys frequentes exigem regressão rápida**: CI/CD automatizado reduz tempo de validação de horas para minutos
+- **Confiança em produção**: 36 testes validam fluxos críticos antes de cada release
+
+### Custo estimado de bugs não detectados
+
+| Cenário | Impacto | Severidade |
+|---------|---------|------------|
+| Checkout quebrado em produção | Perda de 100% das vendas durante downtime ou período de indisponibilidade |  Crítico |
+| Validação de cartão inválida | Risco de fraude + custos com chargeback |  Crítico |
+| Login indisponível | Clientes não conseguem finalizar compras |  Crítico |
+| Vitrine com preços errados | Perda de margem ou reclamações (PROCON) |  Alto |
+
+
+**Resultado:** Os 3 bugs críticos identificados (validação de pagamento) foram detectados **antes** de qualquer deploy, evitando impacto financeiro.
+
+---
+
 ##  Métricas do Projeto
 
-- **39 testes automatizados** cobrindo fluxos críticos de e-commerce
+- **39 testes automatizados** cobrindo fluxos críticos antes de cada release
 - **3 bugs críticos** de validação identificados e documentados
 - **100% dos fluxos de receita** (checkout) cobertos
 - **Relatórios HTML** gerados automaticamente com Mochawesome
 - **CI/CD** executando testes a cada push
+ 
 
 ###  Cobertura por Funcionalidade
 
-| Funcionalidade | Testes | Passando | Skipados | Cobertura |
-|----------------|--------|----------|----------|-----------|
+| Funcionalidade | Testes | Passando | Bloqueados | Cobertura |
+|----------------|--------|----------|------------|-----------|
 | Login | 10 | 10 | 0 | 100% |
 | Vitrine | 12 | 12 | 0 | 100% |
 | Checkout | 17 | 14 | 3 | 82% (bugs identificados) |
@@ -31,7 +59,7 @@ Este repositório contém a suíte completa de testes automatizados para validar
 
 > **Nota sobre cobertura:** Os percentuais representam a cobertura dos **fluxos principais e críticos** de cada funcionalidade. Cenários edge case e testes de performance não estão incluídos nesta métrica.
 
-----
+---
 
 ##  Bugs Identificados
 
@@ -45,11 +73,70 @@ Durante a automação, foram identificados **3 bugs críticos** na validação d
 
 > **Nota:** Os testes relacionados a esses bugs estão marcados com `.skip()` e linkados às respectivas Issues para rastreabilidade.
 
+---
+
 ##  Relatórios
 
-**[Ver último relatório de testes online](https://joao-cmr.github.io/qa-commerce-teste/)**
+**[ Ver último relatório de testes online](https://joao-cmr.github.io/qa-commerce-teste/)**
 
 Os relatórios são gerados automaticamente com Mochawesome e publicados no GitHub Pages após cada execução no CI/CD.
+
+---
+
+##  Estratégia de Teste e Priorização
+
+### Critérios de Prioridade
+
+Os testes foram priorizados com base em **impacto no negócio** e **frequência de uso**:
+
+| Prioridade | Critério | Cobertura | Exemplo |
+|------------|----------|-----------|---------|
+| **P0** | Impacta receita diretamente | 17 testes | Checkout, validação de pagamento |
+| **P1** | Bloqueia acesso ao sistema | 10 testes | Login, autenticação |
+| **P2** | Degrada experiência do usuário | 12 testes | Vitrine, busca de produtos |
+
+### Decisões Técnicas
+
+ **Page Objects**: Reduz duplicação de código e facilita manutenção (seletores em um único lugar)  
+ **Faker.js**: Evita massa de dados estática (problemas de duplicação em ambientes compartilhados)  
+ **CI/CD**: Testes rodam automaticamente a cada push — regressão em 3 minutos  
+ **Screenshots apenas em falhas**: Economiza espaço em disco e facilita debug  
+ **Rastreabilidade**: Bugs vinculados a Issues do GitHub para controle de qualidade  
+
+### Gestão de Defeitos
+
+**Testes bloqueados (`.skip()`) vs bugs conhecidos:**
+
+Quando um teste falha, o fluxo é:
+1.  Confirmo que é bug (não falso positivo)
+2.  Abro Issue documentada com evidências
+3.  Marco teste com `.skip()` + link para Issue
+4.  Mantenho o teste no código (será reativado após correção)
+
+**Por que não deletar o teste?**
+- Documentação viva do comportamento esperado
+- Será reativado assim que o bug for corrigido
+- Evita regressão futura
+
+> **Exemplo:** [BUG-CHK-001](https://github.com/joao-cmr/qa-commerce-teste/issues/1) - Teste `deve recusar cartão com número inválido` está temporariamente desabilitado até correção do algoritmo de Luhn no backend.
+
+---
+
+##  Validação de Inputs Maliciosos
+
+Além dos testes funcionais, o checkout possui **validação de inputs perigosos** para garantir sanitização:
+
+| Tipo de Ataque | Campo Testado | Payload | Resultado | Risco |
+|----------------|---------------|---------|-----------|-------|
+| SQL Injection | Nome | `' OR '1'='1` |  Escapado | Baixo |
+| XSS | Endereço | `<script>alert('xss')</script>` |  HTML Entities | Baixo |
+| Email Malicioso | Email | `test@example.com<script>` |  Rejeitado | Baixo |
+
+**Objetivo:** Validar que a aplicação não aceita inputs potencialmente perigosos. Não são testes de pentest profissional, mas **primeira linha de defesa** contra ataques comuns.
+
+> **Nota:** Para validação de segurança avançada (OWASP Top 10), ferramentas como ZAP ou Burp Suite são recomendadas.
+
+---
 
 ##  Tecnologias Utilizadas
 
@@ -59,6 +146,8 @@ Os relatórios são gerados automaticamente com Mochawesome e publicados no GitH
 - **GitHub Actions** - CI/CD para execução automática dos testes
 - **Page Objects** - Padrão de design para organização e manutenibilidade
 
+---
+
 ##  Pré-requisitos
 
 Antes de começar, você precisa ter instalado:
@@ -66,6 +155,8 @@ Antes de começar, você precisa ter instalado:
 - [Node.js](https://nodejs.org/) (versão 20 ou superior)
 - [Git](https://git-scm.com/)
 - [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce) clonado e rodando
+
+---
 
 ##  Instalação
 
@@ -88,6 +179,8 @@ npm start
 ```
 
 A aplicação deve estar acessível em `http://localhost:3000`
+
+---
 
 ##  Executando os Testes
 
@@ -115,6 +208,8 @@ npm run test:report
 
 O relatório HTML será gerado em `cypress/reports/report.html`
 
+---
+
 ##  Estrutura do Projeto
 ```
 qa-commerce-teste/
@@ -123,7 +218,7 @@ qa-commerce-teste/
 │       └── cypress.yml          # Pipeline CI/CD
 ├── cypress/
 │   ├── e2e/
-│   │   ├── checkout.cy.js       # 17 testes de checkout (3 skipados - bugs)
+│   │   ├── checkout.cy.js       # 17 testes de checkout (3 bloqueados - bugs)
 │   │   ├── login.cy.js          # 10 testes de autenticação
 │   │   └── vitrine.cy.js        # 12 testes da vitrine
 │   ├── fixtures/
@@ -144,6 +239,8 @@ qa-commerce-teste/
 └── README.md
 ```
 
+---
+
 ##  CI/CD - GitHub Actions
 
 Os testes rodam **automaticamente** a cada push para a branch `main`:
@@ -163,6 +260,8 @@ Os testes rodam **automaticamente** a cada push para a branch `main`:
 - **[Relatório Online](https://joao-cmr.github.io/qa-commerce-teste/)** - Último relatório de testes publicado
 - **[Issues](https://github.com/joao-cmr/qa-commerce-teste/issues)** - Bugs identificados e documentados
 
+---
+
 ##  Documentação de Testes
 
 Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
@@ -170,6 +269,8 @@ Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
 - [Casos de Teste - Login](docs/CASOS_TESTE_LOGIN.md)
 - [Casos de Teste - Vitrine](docs/CASOS_TESTE_VITRINE.md)
 - [Casos de Teste - Checkout](docs/CASOS_TESTE_CHECKOUT.md)
+
+---
 
 ##  Funcionalidades dos Testes
 
@@ -231,16 +332,7 @@ Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
 **Segurança e Edge Cases:**
 - Tratamento de produto inexistente (404)
 
-##  Boas Práticas Implementadas
-
-- **Comandos Customizados** - `cy.login()` para reutilização de código
-- **Page Objects** - Manutenibilidade e organização (login-page, checkout-page)
-- **Faker.js** - Dados dinâmicos para evitar hardcoding
-- **Fixtures** - Massa de dados estruturada e reutilizável
-- **Waits inteligentes** - Estabilidade em ambientes CI/CD
-- **Screenshots automáticos** - Apenas em falhas (economia de espaço)
-- **Priorização de testes** - P0 (crítico) → P1 (alto) → P2 (médio)
-- **Rastreabilidade** - Bugs linkados a Issues do GitHub
+---
 
 ##  Reportando Bugs
 
@@ -251,20 +343,26 @@ Se encontrar problemas ao executar os testes:
 3. Veja os screenshots na pasta `cypress/screenshots`
 4. Abra uma [issue](https://github.com/joao-cmr/qa-commerce-teste/issues) com detalhes
 
+---
+
 ##  Recursos Adicionais
 
 - [Documentação do Cypress](https://docs.cypress.io/)
 - [Best Practices Cypress](https://docs.cypress.io/guides/references/best-practices)
 - [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce)
 
-## Autor
+---
+
+##  Autor
 
 **João Carlos M. Rodrigues**
 
 - GitHub: [@joao-cmr](https://github.com/joao-cmr)
 - LinkedIn: [joaocmr](https://linkedin.com/in/joaocmr)
 
-Projeto desenvolvido como parte do portfólio de Analista de QA, demonstrando habilidades em automação de testes E2E, identificação de bugs críticos, documentação técnica e CI/CD.
+Projeto desenvolvido com foco em simular a atuação de um QA em ambiente real de produto, com ênfase em qualidade orientada a risco, automação e CI/CD.
+
+---
 
 ##  Licença
 
