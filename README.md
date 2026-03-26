@@ -23,14 +23,14 @@ Este projeto de automação foi estruturado com foco em **proteger a receita** e
 - **Checkout representa 100% da conversão**: Uma falha nesse fluxo = perda direta de vendas
 - **Bugs de validação = risco financeiro**: Aceitar cartão inválido pode gerar chargeback e fraude
 - **Deploys frequentes exigem regressão rápida**: CI/CD automatizado reduz tempo de validação de horas para minutos
-- **Confiança em produção**: 36 testes validam fluxos críticos antes de cada release
+- **Confiança em produção**: 36 testes automatizados executados automaticamente no CI antes de cada release, garantindo validação contínua dos fluxos críticos
 
 ### Custo estimado de bugs não detectados
 
 | Cenário | Impacto | Severidade |
 |---------|---------|------------|
 | Checkout quebrado em produção | Perda de 100% das vendas durante downtime ou período de indisponibilidade |  Crítico |
-| Validação de cartão inválida | Risco de fraude + custos com chargeback |  Crítico |
+| Validação de cartão inválido | Risco de fraude + custos com chargeback |  Crítico |
 | Login indisponível | Clientes não conseguem finalizar compras |  Crítico |
 | Vitrine com preços errados | Perda de margem ou reclamações (PROCON) |  Alto |
 
@@ -41,9 +41,10 @@ Este projeto de automação foi estruturado com foco em **proteger a receita** e
 
 ##  Métricas do Projeto
 
-- **39 testes automatizados** cobrindo fluxos críticos antes de cada release
+- **39 testes automatizados**, sendo **36 ativos no pipeline de CI** (3 bloqueados por bugs identificados)
 - **3 bugs críticos** de validação identificados e documentados
 - **100% dos fluxos de receita** (checkout) cobertos
+- **Execução em CI (~3 minutos)** garantindo feedback rápido
 - **Relatórios HTML** gerados automaticamente com Mochawesome
 - **CI/CD** executando testes a cada push
  
@@ -135,6 +136,22 @@ Além dos testes funcionais, o checkout possui **validação de inputs perigosos
 **Objetivo:** Validar que a aplicação não aceita inputs potencialmente perigosos. Não são testes de pentest profissional, mas **primeira linha de defesa** contra ataques comuns.
 
 > **Nota:** Para validação de segurança avançada (OWASP Top 10), ferramentas como ZAP ou Burp Suite são recomendadas.
+
+---
+
+## Limitações e Próximos Passos
+
+Este projeto foca em testes E2E orientados a fluxos críticos. Não cobre:
+
+- Testes de performance (ex: carga no checkout)
+- Testes de contrato de API
+- Testes visuais (UI regression)
+- Testes cross-browser em larga escala
+
+Próximos passos incluem:
+- Integração com testes de API 
+- Execução paralela para redução de tempo de pipeline
+- Monitoramento contínuo pós-deploy
 
 ---
 
@@ -360,14 +377,13 @@ Se encontrar problemas ao executar os testes:
 - GitHub: [@joao-cmr](https://github.com/joao-cmr)
 - LinkedIn: [joaocmr](https://linkedin.com/in/joaocmr)
 
-Projeto desenvolvido com foco em simular a atuação de um QA em ambiente real de produto, com ênfase em qualidade orientada a risco, automação e CI/CD.
+####
+Projeto desenvolvido para simular a atuação de um QA em ambiente real de produto, com foco em qualidade orientada a risco, mitigação de falhas críticas e suporte à tomada de decisão em ciclos de entrega contínua.
+
+Este repositório reflete práticas aplicadas em cenários reais de engenharia de qualidade, incluindo automação E2E, integração contínua, rastreabilidade de defeitos e priorização baseada em impacto de negócio.
+
+
 
 ---
 
-##  Licença
 
-Este projeto é open source para fins educacionais.
-
----
-
-⭐ Se este projeto te ajudou, considere dar uma estrela!
