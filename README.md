@@ -4,17 +4,17 @@
 
 Testes E2E automatizados com Cypress para o projeto [QA Commerce](https://github.com/joao-cmr/qa-commerce) - uma aplicação de e-commerce desenvolvida para prática de QA.
 
-##  Sobre o Projeto
+##  Sobre o Projeto
 
 Suíte de testes E2E orientada a risco, focada na proteção de receita e prevenção de regressões em um fluxo de e-commerce para validar as principais funcionalidades do QA Commerce, incluindo:
 
--  **Login/Logout** - Autenticação de usuários
--  **Checkout** - Fluxo completo de compra
--  **Vitrine** - Navegação e busca de produtos
+-  **Login/Logout** - Autenticação de usuários
+-  **Checkout** - Fluxo completo de compra
+-  **Vitrine** - Navegação e busca de produtos
 
 ---
 
-##  Impacto no Negócio
+##  Impacto no Negócio
 
 
 ### Por que automatizar E2E em e-commerce?
@@ -28,17 +28,17 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 
 | Cenário | Impacto | Severidade |
 |---------|---------|------------|
-| Checkout quebrado em produção | Perda de 100% das vendas durante downtime ou período de indisponibilidade |  Crítico |
-| Validação de cartão inválido | Risco de fraude + custos com chargeback |  Crítico |
-| Login indisponível | Clientes não conseguem finalizar compras |  Crítico |
-| Vitrine com preços errados | Perda de margem ou reclamações (PROCON) |  Alto |
+| Checkout quebrado em produção | Perda de 100% das vendas durante downtime ou período de indisponibilidade |  Crítico |
+| Validação de cartão inválido | Risco de fraude + custos com chargeback |  Crítico |
+| Login indisponível | Clientes não conseguem finalizar compras |  Crítico |
+| Vitrine com preços errados | Perda de margem ou reclamações (PROCON) |  Alto |
 
 
 **Resultado:** Os 3 bugs críticos identificados (validação de pagamento) foram detectados **antes** de qualquer deploy, evitando impacto financeiro.
 
 ---
 
-##  Métricas do Projeto
+##  Métricas do Projeto
 
 - **39 testes automatizados**, sendo **36 ativos no pipeline de CI** (3 bloqueados por bugs identificados)
 - **3 bugs críticos** de validação identificados e documentados
@@ -46,9 +46,9 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 - **Execução em CI (~3 minutos)** garantindo feedback rápido
 - **Relatórios HTML** gerados automaticamente com Mochawesome
 - **CI/CD** executando testes a cada push
- 
+ 
 
-###  Cobertura por Funcionalidade
+###  Cobertura por Funcionalidade
 
 | Funcionalidade | Testes | Passando | Bloqueados | Cobertura |
 |----------------|--------|----------|------------|-----------|
@@ -61,7 +61,7 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 
 ---
 
-##  Bugs Identificados
+##  Bugs Identificados
 
 Durante a automação, foram identificados **3 bugs críticos** na validação de pagamento:
 
@@ -75,7 +75,7 @@ Durante a automação, foram identificados **3 bugs críticos** na validação d
 
 ---
 
-##  Relatórios
+##  Relatórios
 
 **[ Ver último relatório de testes online](https://joao-cmr.github.io/qa-commerce-teste/)**
 
@@ -83,7 +83,7 @@ Os relatórios são gerados automaticamente com Mochawesome e publicados no GitH
 
 ---
 
-##  Estratégia de Teste e Priorização
+##  Estratégia de Teste e Priorização
 
 ### Critérios de Prioridade
 
@@ -97,40 +97,36 @@ Os testes foram priorizados com base em **impacto no negócio** e **frequência 
 
 ### Decisões Técnicas
 
- **Page Objects**: Reduz duplicação de código e facilita manutenção (seletores em um único lugar)  
- **Faker.js**: Evita massa de dados estática (problemas de duplicação em ambientes compartilhados)  
- **CI/CD**: Testes rodam automaticamente a cada push — regressão em 3 minutos  
- **Screenshots apenas em falhas**: Economiza espaço em disco e facilita debug  
- **Rastreabilidade**: Bugs vinculados a Issues do GitHub para controle de qualidade  
+ **Page Objects**: Reduz duplicação de código e facilita manutenção (seletores em um único lugar)  
+ **Faker.js**: Evita massa de dados estática (problemas de duplicação em ambientes compartilhados)  
+ **CI/CD**: Testes rodam automaticamente a cada push — regressão em 3 minutos  
+ **Screenshots apenas em falhas**: Economiza espaço em disco e facilita debug  
+ **Rastreabilidade**: Bugs vinculados a Issues do GitHub para controle de qualidade  
 
 ### Gestão de Defeitos
 
 **Testes bloqueados (`.skip()`) vs bugs conhecidos:**
 
 Quando um teste falha, o fluxo é:
-1.  Confirmo que é bug (não falso positivo)
-2.  Abro Issue documentada com evidências
-3.  Marco teste com `.skip()` + link para Issue
-4.  Mantenho o teste no código (será reativado após correção)
+1.  Confirmo que é bug (não falso positivo)
+2.  Abro Issue documentada com evidências
+3.  Marco teste com `.skip()` + link para Issue
+4.  Mantenho o teste no código (será reativado após correção)
 
-**Por que não deletar o teste?**
-- Documentação viva do comportamento esperado
-- Será reativado assim que o bug for corrigido
-- Evita regressão futura
 
 > **Exemplo:** [BUG-CHK-001](https://github.com/joao-cmr/qa-commerce-teste/issues/1) - Teste `deve recusar cartão com número inválido` está temporariamente desabilitado até correção do algoritmo de Luhn no backend.
 
 ---
 
-##  Validação de Inputs Maliciosos
+##  Validação de Inputs Maliciosos
 
 Além dos testes funcionais, o checkout possui **validação de inputs perigosos** para garantir sanitização:
 
 | Tipo de Ataque | Campo Testado | Payload | Resultado | Risco |
 |----------------|---------------|---------|-----------|-------|
-| SQL Injection | Nome | `' OR '1'='1` |  Escapado | Baixo |
-| XSS | Endereço | `<script>alert('xss')</script>` |  HTML Entities | Baixo |
-| Email Malicioso | Email | `test@example.com<script>` |  Rejeitado | Baixo |
+| SQL Injection | Nome | `' OR '1'='1` |  Escapado | Baixo |
+| XSS | Endereço | `<script>alert('xss')</script>` |  HTML Entities | Baixo |
+| Email Malicioso | Email | `test@example.com<script>` |  Rejeitado | Baixo |
 
 **Objetivo:** Validar que a aplicação não aceita inputs potencialmente perigosos. Não são testes de pentest profissional, mas **primeira linha de defesa** contra ataques comuns.
 
@@ -138,22 +134,25 @@ Além dos testes funcionais, o checkout possui **validação de inputs perigosos
 
 ---
 
-##  Escopo e Evolução
 
-Este projeto foca em testes E2E orientados a fluxos críticos. Não cobre:
+##  Escopo e Evolução
 
-- Testes de performance (ex: carga no checkout)
-- Testes visuais (UI regression)
-- Testes cross-browser em larga escala
+Este projeto segue uma estratégia de testes em camadas, separando responsabilidades entre diferentes níveis de validação:
 
-Próximos passos incluem:
+- Testes [E2E](https://github.com/joao-cmr/qa-commerce-teste) validam jornadas críticas do usuário e fluxos de receita
+- Testes de [API](https://github.com/joao-cmr/postman-qa-commerce-api) garantem regras de negócio, validações e confiabilidade do backend
 
-- [ ] Testes de API com Postman/Newman (repositório separado planejado)
+Essa abordagem reduz a dependência de testes E2E para validações complexas, tornando a suíte mais rápida, confiável e escalável.
+
+**Próximos passos incluem:**
+
+- [ ] Testes de performance (ex: carga no checkout)
+- [ ] Testes visuais (UI regression)
 - [ ] Execução paralela (reduzir tempo de CI)
 
 ---
 
-##  Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - **Cypress 14.5.4** - Framework de testes E2E
 - **Faker.js** - Geração de dados dinâmicos para testes
@@ -163,7 +162,7 @@ Próximos passos incluem:
 
 ---
 
-##  Pré-requisitos
+##  Pré-requisitos
 
 Antes de começar, você precisa ter instalado:
 
@@ -173,7 +172,7 @@ Antes de começar, você precisa ter instalado:
 
 ---
 
-##  Instalação
+##  Instalação
 
 ### 1. Clone este repositório
 ```bash
@@ -197,24 +196,20 @@ A aplicação deve estar acessível em `http://localhost:3000`
 
 ---
 
-##  Executando os Testes
+##  Executando os Testes
 
 ### Modo Interativo (Cypress UI)
 ```bash
 npx cypress open
 ```
 
-Selecione os testes que deseja executar na interface gráfica.
-
 ### Modo Headless (linha de comando)
 ```bash
 npm test
 ```
 
-Ou com navegador específico:
-```bash
-npx cypress run --browser chrome
-```
+Selecione os testes que deseja executar na interface gráfica.
+
 
 ### Gerar Relatório Mochawesome
 ```bash
@@ -225,30 +220,30 @@ O relatório HTML será gerado em `cypress/reports/report.html`
 
 ---
 
-##  Estrutura do Projeto
+##  Estrutura do Projeto
 ```
 qa-commerce-teste/
 ├── .github/
-│   └── workflows/
-│       └── cypress.yml          # Pipeline CI/CD
+│   └── workflows/
+│       └── cypress.yml          # Pipeline CI/CD
 ├── cypress/
-│   ├── e2e/
-│   │   ├── checkout.cy.js       # 17 testes de checkout (3 bloqueados - bugs)
-│   │   ├── login.cy.js          # 10 testes de autenticação
-│   │   └── vitrine.cy.js        # 12 testes da vitrine
-│   ├── fixtures/
-│   │   ├── multiplos-produtos.json
-│   │   └── produto-unico.json
-│   ├── support/
-│   │   ├── commands.js          # Comandos customizados (cy.login)
-│   │   ├── e2e.js
-│   │   └── page-objects/        # Page Objects (login, checkout, vitrine)
-│   ├── reports/                 # Relatórios Mochawesome (ignorado no git)
-│   └── screenshots/             # Screenshots de falhas (ignorado no git)
+│   ├── e2e/
+│   │   ├── checkout.cy.js       # 17 testes de checkout (3 bloqueados - bugs)
+│   │   ├── login.cy.js          # 10 testes de autenticação
+│   │   └── vitrine.cy.js        # 12 testes da vitrine
+│   ├── fixtures/
+│   │   ├── multiplos-produtos.json
+│   │   └── produto-unico.json
+│   ├── support/
+│   │   ├── commands.js          # Comandos customizados (cy.login)
+│   │   ├── e2e.js
+│   │   └── page-objects/        # Page Objects (login, checkout, vitrine)
+│   ├── reports/                 # Relatórios Mochawesome (ignorado no git)
+│   └── screenshots/             # Screenshots de falhas (ignorado no git)
 ├── docs/
-│   ├── CASOS_TESTE_CHECKOUT.md  # Documentação BDD - Checkout
-│   ├── CASOS_TESTE_LOGIN.md     # Documentação BDD - Login
-│   └── CASOS_TESTE_VITRINE.md   # Documentação BDD - Vitrine
+│   ├── CASOS_TESTE_CHECKOUT.md  # Documentação BDD - Checkout
+│   ├── CASOS_TESTE_LOGIN.md     # Documentação BDD - Login
+│   └── CASOS_TESTE_VITRINE.md   # Documentação BDD - Vitrine
 ├── cypress.config.js
 ├── package.json
 └── README.md
@@ -256,7 +251,7 @@ qa-commerce-teste/
 
 ---
 
-##  CI/CD - GitHub Actions
+##  CI/CD - GitHub Actions
 
 Os testes rodam **automaticamente** a cada push para a branch `main`:
 
@@ -277,7 +272,7 @@ Os testes rodam **automaticamente** a cada push para a branch `main`:
 
 ---
 
-##  Documentação de Testes
+##  Documentação de Testes
 
 Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
 
@@ -288,7 +283,7 @@ Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
 ---
 
 
-##  Reportando Bugs
+##  Reportando Bugs
 
 Se encontrar problemas ao executar os testes:
 
@@ -299,29 +294,24 @@ Se encontrar problemas ao executar os testes:
 
 ---
 
-##  Recursos Adicionais
-
-- [Documentação do Cypress](https://docs.cypress.io/)
-- [Best Practices Cypress](https://docs.cypress.io/guides/references/best-practices)
-- [Repositório QA Commerce](https://github.com/joao-cmr/qa-commerce)
-
----
-
 ####
 
-Este repositório reflete práticas aplicadas em cenários reais de engenharia de qualidade, incluindo automação E2E, integração contínua, rastreabilidade de defeitos e priorização baseada em impacto de negócio.
+Este repositório demonstra práticas de engenharia de qualidade aplicadas em cenários reais, incluindo:
 
-**Objetivo:** Demonstrar que, mesmo em um projeto de portfólio, aplico os mesmos padrões de qualidade esperados em ambientes profissionais: prevenção de regressões, identificação proativa de riscos e suporte à tomada de decisão técnica.
+- Automação E2E orientada a risco
+- Integração contínua (CI/CD)
+- Rastreabilidade de defeitos
+- Priorização baseada em impacto de negócio
+
+**Objetivo:** Demonstrar capacidade de atuar como QA Engineer em ambiente de produto, contribuindo para prevenção de regressões, identificação de riscos e suporte à tomada de decisão técnica.
 
 
 ---
 
-##  Autor
+##  Autor
 
 **João Carlos M. Rodrigues**
 
 - GitHub: [@joao-cmr](https://github.com/joao-cmr)
 - LinkedIn: [joaocmr](https://linkedin.com/in/joaocmr)
-
-
 
