@@ -16,7 +16,6 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 
 ##  Impacto no Negócio
 
-Este projeto de automação foi estruturado com foco em **proteger a receita** e **reduzir riscos operacionais** do QA Commerce:
 
 ### Por que automatizar E2E em e-commerce?
 
@@ -139,19 +138,18 @@ Além dos testes funcionais, o checkout possui **validação de inputs perigosos
 
 ---
 
-## Limitações e Próximos Passos
+##  Escopo e Evolução
 
 Este projeto foca em testes E2E orientados a fluxos críticos. Não cobre:
 
 - Testes de performance (ex: carga no checkout)
-- Testes de contrato de API
 - Testes visuais (UI regression)
 - Testes cross-browser em larga escala
 
 Próximos passos incluem:
-- Integração com testes de API 
-- Execução paralela para redução de tempo de pipeline
-- Monitoramento contínuo pós-deploy
+
+- [ ] Testes de API com Postman/Newman (repositório separado planejado)
+- [ ] Execução paralela (reduzir tempo de CI)
 
 ---
 
@@ -370,6 +368,15 @@ Se encontrar problemas ao executar os testes:
 
 ---
 
+####
+
+Este repositório reflete práticas aplicadas em cenários reais de engenharia de qualidade, incluindo automação E2E, integração contínua, rastreabilidade de defeitos e priorização baseada em impacto de negócio.
+
+**Objetivo:** Demonstrar que, mesmo em um projeto de portfólio, aplico os mesmos padrões de qualidade esperados em ambientes profissionais: prevenção de regressões, identificação proativa de riscos e suporte à tomada de decisão técnica.
+
+
+---
+
 ##  Autor
 
 **João Carlos M. Rodrigues**
@@ -377,13 +384,5 @@ Se encontrar problemas ao executar os testes:
 - GitHub: [@joao-cmr](https://github.com/joao-cmr)
 - LinkedIn: [joaocmr](https://linkedin.com/in/joaocmr)
 
-####
-Projeto desenvolvido para simular a atuação de um QA em ambiente real de produto, com foco em qualidade orientada a risco, mitigação de falhas críticas e suporte à tomada de decisão em ciclos de entrega contínua.
-
-Este repositório reflete práticas aplicadas em cenários reais de engenharia de qualidade, incluindo automação E2E, integração contínua, rastreabilidade de defeitos e priorização baseada em impacto de negócio.
-
-
-
----
 
 
