@@ -4,18 +4,17 @@
 
 Testes E2E automatizados com Cypress para o projeto [QA Commerce](https://github.com/joao-cmr/qa-commerce) - uma aplicação de e-commerce desenvolvida para prática de QA.
 
-##  Sobre o Projeto
+## Sobre o Projeto
 
 Suíte de testes E2E orientada a risco, focada na proteção de receita e prevenção de regressões em um fluxo de e-commerce para validar as principais funcionalidades do QA Commerce, incluindo:
 
--  **Login/Logout** - Autenticação de usuários
--  **Checkout** - Fluxo completo de compra
--  **Vitrine** - Navegação e busca de produtos
+- **Login/Logout** - Autenticação de usuários
+- **Checkout** - Fluxo completo de compra
+- **Vitrine** - Navegação e busca de produtos
 
 ---
 
-##  Impacto no Negócio
-
+## Impacto no Negócio
 
 ### Por que automatizar E2E em e-commerce?
 
@@ -28,17 +27,16 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 
 | Cenário | Impacto | Severidade |
 |---------|---------|------------|
-| Checkout quebrado em produção | Perda de 100% das vendas durante downtime ou período de indisponibilidade |  Crítico |
-| Validação de cartão inválido | Risco de fraude + custos com chargeback |  Crítico |
-| Login indisponível | Clientes não conseguem finalizar compras |  Crítico |
-| Vitrine com preços errados | Perda de margem ou reclamações (PROCON) |  Alto |
+| Checkout quebrado em produção | Perda de 100% das vendas durante downtime ou período de indisponibilidade | Crítico |
+| Validação de cartão inválido | Risco de fraude + custos com chargeback | Crítico |
+| Login indisponível | Clientes não conseguem finalizar compras | Crítico |
+| Vitrine com preços errados | Perda de margem ou reclamações (PROCON) | Alto |
 
-
-**Resultado:** Os 3 bugs críticos identificados (validação de pagamento) foram detectados **antes** de qualquer deploy, evitando impacto financeiro.
+>**Resultado:** Os 3 bugs críticos identificados (validação de pagamento) foram detectados **antes** de qualquer deploy, evitando impacto financeiro.
 
 ---
 
-##  Métricas do Projeto
+## Métricas do Projeto
 
 - **39 testes automatizados**, sendo **36 ativos no pipeline de CI** (3 bloqueados por bugs identificados)
 - **3 bugs críticos** de validação identificados e documentados
@@ -46,9 +44,8 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 - **Execução em CI (~3 minutos)** garantindo feedback rápido
 - **Relatórios HTML** gerados automaticamente com Mochawesome
 - **CI/CD** executando testes a cada push
- 
 
-###  Cobertura por Funcionalidade
+### Cobertura por Funcionalidade
 
 | Funcionalidade | Testes | Passando | Bloqueados | Cobertura |
 |----------------|--------|----------|------------|-----------|
@@ -57,11 +54,11 @@ Suíte de testes E2E orientada a risco, focada na proteção de receita e preven
 | Checkout | 17 | 14 | 3 | 82% (bugs identificados) |
 | **Total** | **39** | **36** | **3** | **92%** |
 
-> **Nota sobre cobertura:** Os percentuais representam a cobertura dos **fluxos principais e críticos** de cada funcionalidade. Cenários edge case e testes de performance não estão incluídos nesta métrica.
+> **Nota sobre cobertura:** Os percentuais representam a cobertura dos **fluxos principais e críticos** de cada funcionalidade.
 
 ---
 
-##  Bugs Identificados
+## Bugs Identificados
 
 Durante a automação, foram identificados **3 bugs críticos** na validação de pagamento:
 
@@ -71,23 +68,19 @@ Durante a automação, foram identificados **3 bugs críticos** na validação d
 | BUG-CHK-002 | Alta | Checkout aceita cartão com data de validade expirada | [#2](https://github.com/joao-cmr/qa-commerce-teste/issues/2) |
 | BUG-CHK-003 | Alta | Checkout aceita CVV com formato incorreto (2 dígitos) | [#3](https://github.com/joao-cmr/qa-commerce-teste/issues/3) |
 
-> **Nota:** Os testes relacionados a esses bugs estão marcados com `.skip()` e linkados às respectivas Issues para rastreabilidade.
-
 ---
 
-##  Relatórios
+## Relatórios
 
-**[ Ver último relatório de testes online](https://joao-cmr.github.io/qa-commerce-teste/)**
+**[Ver último relatório de testes online](https://joao-cmr.github.io/qa-commerce-teste/)**
 
 Os relatórios são gerados automaticamente com Mochawesome e publicados no GitHub Pages após cada execução no CI/CD.
 
 ---
 
-##  Estratégia de Teste e Priorização
+## Estratégia de Teste e Priorização
 
 ### Critérios de Prioridade
-
-Os testes foram priorizados com base em **impacto no negócio** e **frequência de uso**:
 
 | Prioridade | Critério | Cobertura | Exemplo |
 |------------|----------|-----------|---------|
@@ -97,62 +90,45 @@ Os testes foram priorizados com base em **impacto no negócio** e **frequência 
 
 ### Decisões Técnicas
 
- **Page Objects**: Reduz duplicação de código e facilita manutenção (seletores em um único lugar)  
- **Faker.js**: Evita massa de dados estática (problemas de duplicação em ambientes compartilhados)  
- **CI/CD**: Testes rodam automaticamente a cada push — regressão em 3 minutos  
- **Screenshots apenas em falhas**: Economiza espaço em disco e facilita debug  
- **Rastreabilidade**: Bugs vinculados a Issues do GitHub para controle de qualidade  
+- **Page Objects**: Reduz duplicação de código e facilita manutenção.
+- **Faker.js**: Evita massa de dados estática e problemas de duplicação.
+- **CI/CD**: Testes rodam automaticamente a cada push via GitHub Actions.
+- **Screenshots apenas em falhas**: Economiza espaço e facilita o debug.
+- **Rastreabilidade**: Bugs vinculados a Issues do GitHub.
 
 ### Gestão de Defeitos
 
-**Testes bloqueados (`.skip()`) vs bugs conhecidos:**
-
 Quando um teste falha, o fluxo é:
-1.  Confirmo que é bug (não falso positivo)
-2.  Abro Issue documentada com evidências
-3.  Marco teste com `.skip()` + link para Issue
-4.  Mantenho o teste no código (será reativado após correção)
-
-
-> **Exemplo:** [BUG-CHK-001](https://github.com/joao-cmr/qa-commerce-teste/issues/1) - Teste `deve recusar cartão com número inválido` está temporariamente desabilitado até correção do algoritmo de Luhn no backend.
+1. Confirmo que é bug (não falso positivo)
+2. Abro Issue documentada com evidências
+3. Marco teste com `.skip()` + link para Issue
+4. Mantenho o teste no código para ser reativado após correção
 
 ---
 
-##  Validação de Inputs Maliciosos
-
-Além dos testes funcionais, o checkout possui **validação de inputs perigosos** para garantir sanitização:
+## Validação de Inputs Maliciosos
 
 | Tipo de Ataque | Campo Testado | Payload | Resultado | Risco |
 |----------------|---------------|---------|-----------|-------|
-| SQL Injection | Nome | `' OR '1'='1` |  Escapado | Baixo |
-| XSS | Endereço | `<script>alert('xss')</script>` |  HTML Entities | Baixo |
-| Email Malicioso | Email | `test@example.com<script>` |  Rejeitado | Baixo |
-
-**Objetivo:** Validar que a aplicação não aceita inputs potencialmente perigosos. Não são testes de pentest profissional, mas **primeira linha de defesa** contra ataques comuns.
-
-> **Nota:** Para validação de segurança avançada (OWASP Top 10), ferramentas como ZAP ou Burp Suite são recomendadas.
+| SQL Injection | Nome | `' OR '1'='1` | Escapado | Baixo |
+| XSS | Endereço | `<script>alert('xss')</script>` | HTML Entities | Baixo |
+| Email Malicioso | Email | `test@example.com<script>` | Rejeitado | Baixo |
 
 ---
 
+## Escopo e Evolução
 
-##  Escopo e Evolução
+- Testes [E2E](https://github.com/joao-cmr/qa-commerce-teste) validam jornadas críticas do usuário.
+- Testes de [API](https://github.com/joao-cmr/postman-qa-commerce-api) garantem regras de negócio no backend.
 
-Este projeto segue uma estratégia de testes em camadas, separando responsabilidades entre diferentes níveis de validação:
-
-- Testes [E2E](https://github.com/joao-cmr/qa-commerce-teste) validam jornadas críticas do usuário e fluxos de receita
-- Testes de [API](https://github.com/joao-cmr/postman-qa-commerce-api) garantem regras de negócio, validações e confiabilidade do backend
-
-Essa abordagem reduz a dependência de testes E2E para validações complexas, tornando a suíte mais rápida, confiável e escalável.
-
-**Próximos passos incluem:**
-
-- [ ] Testes de performance (ex: carga no checkout)
+**Próximos passos:**
+- [ ] Testes de performance
 - [ ] Testes visuais (UI regression)
-- [ ] Execução paralela (reduzir tempo de CI)
+- [ ] Execução paralela no CI
 
 ---
 
-##  Tecnologias Utilizadas
+## Tecnologias utilizadas 
 
 - **Cypress 14.5.4** - Framework de testes E2E
 - **Faker.js** - Geração de dados dinâmicos para testes
@@ -162,7 +138,7 @@ Essa abordagem reduz a dependência de testes E2E para validações complexas, t
 
 ---
 
-##  Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, você precisa ter instalado:
 
@@ -172,7 +148,7 @@ Antes de começar, você precisa ter instalado:
 
 ---
 
-##  Instalação
+## Instalação
 
 ### 1. Clone este repositório
 ```bash
@@ -196,7 +172,7 @@ A aplicação deve estar acessível em `http://localhost:3000`
 
 ---
 
-##  Executando os Testes
+## Executando os Testes
 
 ### Modo Interativo (Cypress UI)
 ```bash
@@ -219,8 +195,7 @@ npm run test:report
 O relatório HTML será gerado em `cypress/reports/report.html`
 
 ---
-
-##  Estrutura do Projeto
+## Estrutura do Projeto
 ```
 qa-commerce-teste/
 ├── .github/
@@ -251,7 +226,7 @@ qa-commerce-teste/
 
 ---
 
-##  CI/CD - GitHub Actions
+## CI/CD - GitHub Actions
 
 Os testes rodam **automaticamente** a cada push para a branch `main`:
 
@@ -272,7 +247,7 @@ Os testes rodam **automaticamente** a cada push para a branch `main`:
 
 ---
 
-##  Documentação de Testes
+## Documentação de Testes
 
 Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
 
@@ -282,8 +257,7 @@ Cada funcionalidade possui documentação completa em formato BDD (Gherkin):
 
 ---
 
-
-##  Reportando Bugs
+## Reportando Bugs
 
 Se encontrar problemas ao executar os testes:
 
@@ -308,7 +282,7 @@ Este repositório demonstra práticas de engenharia de qualidade aplicadas em ce
 
 ---
 
-##  Autor
+## Autor
 
 **João Carlos M. Rodrigues**
 
