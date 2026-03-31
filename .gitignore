@@ -149,3 +149,19 @@ cypress/reports/*.json
 cypress/reports/assets/
 cypress/reports/.jsons/
 !cypress/reports/report.html
+
+# Postman - NÃO commitar environments reais
+API/postman/environments/*.postman_environment.json
+
+# Permitir apenas o template
+!API/postman/environments/*.example.json
+
+# Reports Newman
+reports/
+newman/
+
+# Dependências
+node_modules/
+
+# Variáveis sensíveis
+.env
