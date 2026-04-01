@@ -153,8 +153,11 @@ cypress/reports/.jsons/
 # Postman - NÃO commitar environments reais
 API/postman/environments/*.postman_environment.json
 
+
 # Permitir apenas o template
-!API/postman/environments/*.example.json
+!API/postman/environments/*.example.
+
+
 
 # Reports Newman
 reports/
