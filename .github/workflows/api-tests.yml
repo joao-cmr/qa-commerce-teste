@@ -25,15 +25,20 @@ jobs:
         run: npm run start &
 
       - name: Wait for app
-        run: npx wait-on http://localhost:3000
+        run: npx wait-on http://localhost:3000/api-docs/ 
+
+      - name: Check API Health (Debug)
+        run: |
+          echo "Testando conexão com a API..."
+          curl -I http://localhost:3000/api-docs/
+          echo "Testando rota de usuários..."
+          curl -v http://localhost:3000/api/users || echo "Rota /api/users não respondeu"
 
       - name: Create Env File
         run: |
           mkdir -p API/postman/environments
           echo '${{ secrets.POSTMAN_ENV_JSON }}' > API/postman/environments/qa-commerce.postman_environment.json
 
-      - name: Run API tests
-        run: npm run test:api:login
 
       - name: Run API tests
         run: npm run test:api:login
