@@ -11,39 +11,61 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+     
+      - name: Checkout testes
+        uses: actions/checkout@v4
+        with:
+          path: qa-commerce-teste
+
+      
+      - name: Checkout aplicação
+        uses: actions/checkout@v4
+        with:
+          repository: joao-cmr/qa-commerce
+          path: qa-commerce
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Start application
+      
+      - name: Install & Start Application
+        working-directory: ./qa-commerce
         run: |
-          node src/server.js > server.log 2>&1 &
-          echo "Servidor disparado em background..."
+          npm install
+          npm run db --if-present  # Executa o banco se o script existir
+          npm start > server.log 2>&1 &
+          echo "Servidor da aplicação disparado..."
 
+      
       - name: Wait for app
         run: |
-          echo "Aguardando 60 segundos pela API..."
+          echo "Aguardando a API em http://localhost:3000/api-docs/ ..."
           npx wait-on http://localhost:3000/api-docs/ --timeout 60000
-        
+
+     
       - name: DEBUG - Show Server Logs on Failure
         if: failure()
         run: |
           echo "--- CONTEÚDO DO LOG DO SERVIDOR ---"
-          cat server.log
+          cat qa-commerce/server.log
           echo "--- FIM DO LOG ---"
+
+      
+      - name: Install test dependencies
+        working-directory: ./qa-commerce-teste
+        run: npm install
+
       - name: Create Env File
+        working-directory: ./qa-commerce-teste
         run: |
           mkdir -p API/postman/environments
           echo '${{ secrets.POSTMAN_ENV_JSON }}' > API/postman/environments/qa-commerce.postman_environment.json
 
-
+      
       - name: Run API tests
+        working-directory: ./qa-commerce-teste
         run: npm run test:api:login
 
       - name: Upload report
@@ -51,4 +73,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: api-test-report
-          path: reports/api/
+          path: qa-commerce-teste/reports/api/
