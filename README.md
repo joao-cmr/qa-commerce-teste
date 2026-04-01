@@ -119,7 +119,7 @@ Quando um teste falha, o fluxo é:
 ## Escopo e Evolução
 
 - Testes [E2E](https://github.com/joao-cmr/qa-commerce-teste) validam jornadas críticas do usuário.
-- Testes de [API](https://github.com/joao-cmr/postman-qa-commerce-api) garantem regras de negócio no backend.
+- Testes de [API](https://github.com/joao-cmr/qa-commerce-teste/tree/main/API/postman) garantem regras de negócio no backend.
 
 **Próximos passos:**
 - [ ] Testes de performance
