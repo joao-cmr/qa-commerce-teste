@@ -22,18 +22,21 @@ jobs:
         run: npm install
 
       - name: Start application
-        run: npm run start &
+        run: |
+          node src/server.js > server.log 2>&1 &
+          echo "Servidor disparado em background..."
 
       - name: Wait for app
-        run: npx wait-on http://localhost:3000/api-docs/ 
-
-      - name: Check API Health (Debug)
         run: |
-          echo "Testando conexão com a API..."
-          curl -I http://localhost:3000/api-docs/
-          echo "Testando rota de usuários..."
-          curl -v http://localhost:3000/api/users || echo "Rota /api/users não respondeu"
-
+          echo "Aguardando 60 segundos pela API..."
+          npx wait-on http://localhost:3000/api-docs/ --timeout 60000
+        
+      - name: DEBUG - Show Server Logs on Failure
+        if: failure()
+        run: |
+          echo "--- CONTEÚDO DO LOG DO SERVIDOR ---"
+          cat server.log
+          echo "--- FIM DO LOG ---"
       - name: Create Env File
         run: |
           mkdir -p API/postman/environments
